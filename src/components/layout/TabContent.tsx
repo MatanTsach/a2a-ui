@@ -2,7 +2,7 @@ import React from "react";
 import { TabType } from "@/types/chat";
 import { AgentCard } from "@/a2a/schema";
 import { StateConversation } from "@/a2a/state";
-import { ChatContainer } from "@/components/chat/ChatContainer";
+import ChatLayout from "@/components/chat/ChatLayout";
 import ConversationListPage from "@/app/pages/ConversationListPage";
 import AgentListPage from "@/app/pages/AgentListPage";
 import EventListPage from "@/app/pages/EventList";
@@ -29,14 +29,7 @@ export const TabContent: React.FC<TabContentProps> = ({
     const renderContent = () => {
         switch (activeTab) {
             case "chat":
-                return (
-                    <ChatContainer
-                        selectedAgent={selectedAgent}
-                        showAgentDetails={showAgentDetails}
-                        conversation={conversation}
-                        onChatTabChange={onChatTabChange}
-                    />
-                );
+                return (<ChatLayout selectedAgent={selectedAgent} conversation={conversation} />);
             case "chats":
                 return <ConversationListPage openConversation={onOpenConversation} />;
             case "agents":
@@ -53,9 +46,11 @@ export const TabContent: React.FC<TabContentProps> = ({
     };
 
     return (
-        <main className="flex-1 overflow-hidden min-h-0">
+        <main className="flex-1 overflow-hidden min-h-0 h-full">
             {activeTab === "chat" ? (
-                renderContent()
+                <div className="h-full">
+                    {renderContent()}
+                </div>
             ) : (
                 <div className="px-16 pt-8 pb-4 h-full overflow-auto">
                     {renderContent()}

@@ -1,13 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,6 +42,18 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* New design tokens mapped to HSL variables */
+  --color-bg: hsl(var(--bg));
+  --color-surface1: hsl(var(--surface-1));
+  --color-surface2: hsl(var(--surface-2));
+  --color-surface3: hsl(var(--surface-3));
+  --color-text1: hsl(var(--text-1));
+  --color-text2: hsl(var(--text-2));
+  --color-accent-2: hsl(var(--accent-2));
+  --color-success: hsl(var(--success));
+  --color-warn: hsl(var(--warn));
+  --color-danger: hsl(var(--danger));
 }
 
 :root {
@@ -113,20 +126,93 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-  }
   body {
     @apply bg-background text-foreground;
   }
   
-  /* Smooth theme transitions */
-  * {
+  /* Theme transitions only for theme-related elements */
+  :root,
+  html,
+  body {
     transition: 
       color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+}
+
+/* globals.css, after @tailwind base/components/utilities */
+:root, html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: hsl(var(--bg));
+  color: hsl(var(--text-1));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+.prose {
+  @apply text-[16px] leading-[1.7] text-text1;
+}
+/* Global heading utilities */
+.ui-h1 { font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
+.ui-h2 { font-size: 24px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.ui-h3 { font-size: 20px; line-height: 1.3; font-weight: 600; }
+
+/* Markdown headings match the same scale */
+.prose h1 { font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
+.prose h2 { font-size: 24px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.prose h3 { font-size: 20px; line-height: 1.3; font-weight: 600; }
+.prose p, .prose li { @apply text-[16px] leading-[1.7] text-text1; }
+.prose code { @apply font-mono px-1.5 py-0.5 rounded-md bg-surface2 text-[13px]; }
+.prose pre { @apply bg-surface2 rounded-xl border border-border overflow-x-auto; box-shadow: inset 0 1px 0 hsl(var(--shadow)/0.25); }
+.prose blockquote { @apply border-l-4 pl-4 text-text2 border-accent/40; }
+.prose a { @apply underline decoration-accent/60 underline-offset-4 hover:decoration-accent; }
+.prose table { @apply w-full overflow-hidden rounded-lg border border-border; }
+.prose thead th { @apply bg-surface2 text-text2; }
+
+/* Focus ring standard */
+:where(button, [role="button"], a, input, textarea, select):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--accent)/0.5), 0 0 0 4px hsl(var(--bg));
+}
+
+@layer utilities {
+  .shadow-soft { box-shadow: 0 1px 1px hsl(var(--shadow)/0.25), 0 4px 16px hsl(var(--shadow)/0.18); }
+  .shadow-float { box-shadow: 0 6px 24px hsl(var(--shadow)/0.22), 0 2px 8px hsl(var(--shadow)/0.16); }
+  .shadow-inset { box-shadow: inset 0 1px 0 hsl(var(--shadow)/0.25); }
+  .ease-calm { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+  @keyframes fadeIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+  @keyframes scaleIn { 0% { opacity: 0; transform: scale(0.98) } 100% { opacity: 1; transform: scale(1) } }
+  .animate-fadeIn { animation: fadeIn .25s ease-out both; }
+  .animate-scaleIn { animation: scaleIn .2s ease-out both; }
+  
+  /* Fallback explicit utilities for custom tokens used in @apply */
+  .text-text1 { color: hsl(var(--text-1)); }
+  .text-text2 { color: hsl(var(--text-2)); }
+  .text-accent2 { color: hsl(var(--accent-2)); }
+  .bg-bg { background-color: hsl(var(--bg)); }
+  .bg-surface1 { background-color: hsl(var(--surface-1)); }
+  .bg-surface2 { background-color: hsl(var(--surface-2)); }
+  .bg-surface3 { background-color: hsl(var(--surface-3)); }
+  .bg-accent2\/20 { background-color: hsl(var(--accent-2) / 0.2); }
+  .border-border { border-color: hsl(var(--border)); }
+  .border-accent2\/35 { border-color: hsl(var(--accent-2) / 0.35); }
+}
+
+/* Placeholder styling for textareas and inputs */
+::placeholder {
+  color: hsl(var(--text-2) / 0.6);
+}
+::-webkit-input-placeholder {
+  color: hsl(var(--text-2) / 0.6);
+}
+::-moz-placeholder {
+  color: hsl(var(--text-2) / 0.6);
+}
+:-ms-input-placeholder {
+  color: hsl(var(--text-2) / 0.6);
 }

@@ -1,0 +1,71 @@
+/* Desktop-first, ChatGPT-like dark */
+
+/* === Brand accents (replace TODOs with official HEX from Varonis) === */
+:root {
+  --varonis-blue-hex:  #0077FF;   /* TODO: replace with official electric blue */
+  --varonis-green-hex: #00D084;   /* TODO: replace with official cyber green */
+
+  /* Convert to HSL once you confirm hex (approximations below) */
+  --accent:    212 100% 50%; /* ← electric blue (from --varonis-blue-hex) */
+  --accent-2:  158 100% 41%; /* ← cyber green (from --varonis-green-hex) */
+
+  /* Light (kept for completeness; default is dark) */
+  --bg: 216 33% 98%;
+  --surface-1: 0 0% 100%;
+  --surface-2: 220 28% 97%;
+  --surface-3: 220 25% 94%;
+  --muted: 220 20% 92%;
+  --border: 220 20% 84%;
+  --text-1: 218 25% 10%;
+  --text-2: 218 15% 32%;
+  --success: 150 52% 48%;
+  --warn: 36 86% 60%;
+  --danger: 0 78% 62%;
+  --shadow: 220 40% 2%;
+}
+
+/* Default to dark: Soft charcoal like ChatGPT */
+:root.dark {
+  /* neutrals unchanged (ChatGPT-like) */
+  --bg:        220 9% 16%;  /* ≈ #272A2F page background */
+  --surface-1: 220 8% 18%;  /* ≈ #2B2E33 main surfaces (chat bubbles, cards) */
+  --surface-2: 220 7% 21%;  /* ≈ #33363C sidebar, composer */
+  --surface-3: 220 7% 24%;  /* ≈ #3A3E45 hovered/raised */
+  --muted:     220 6% 28%;  /* ≈ #454A51 secondary chips */
+  --border:    220 6% 32%;  /* ≈ #4F555E subtle borders */
+
+  --text-1:    220 20% 92%; /* ≈ #ECEFF4 primary text */
+  --text-2:    220 10% 70%; /* ≈ #A7AFB8 secondary text */
+
+  /* brand accents (read from vars above) */
+  --accent:    212 100% 50%; /* Varonis Electric Blue */
+  --accent-2:  158 100% 41%; /* Varonis Cyber Green */
+
+  --success:   150 52% 54%;
+  --warn:      36 86% 62%;
+  --danger:    0 78% 65%;
+
+  --shadow:    220 40% 2%;
+}
+
+/* Utility tones derived from accents (don't exceed 60% saturation visually) */
+:root {
+  --accent-weak: color-mix(in hsl, hsl(var(--surface-2)) 85%, hsl(var(--accent)) 15%);
+  --accent-ring: color-mix(in hsl, hsl(var(--accent)) 55%, white 45%);
+}
+
+/* Apply */
+html, body { 
+  height: 100%; 
+  background: hsl(var(--bg)); 
+  color: hsl(var(--text-1)); 
+}
+
+body { 
+  min-height: 100vh; 
+}
+
+/* Selection, scrollbar (optional) */
+*::selection { background: hsl(var(--accent)/0.25); color: hsl(var(--text-1)); }
+::-webkit-scrollbar { height: 10px; width: 10px; }
+::-webkit-scrollbar-thumb { background: hsl(var(--muted)); border-radius: 9999px; }

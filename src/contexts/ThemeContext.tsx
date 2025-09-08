@@ -15,8 +15,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const THEME_STORAGE_KEY = 'a2a_theme';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
+  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('dark');
   const [isClient, setIsClient] = useState(false);
 
   // Set client flag and load theme from localStorage on mount
@@ -27,6 +27,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme;
         if (stored && ['light', 'dark', 'system'].includes(stored)) {
           setTheme(stored);
+        } else {
+          setTheme('dark'); // Default to dark if no stored preference
         }
       }
     } catch (error) {

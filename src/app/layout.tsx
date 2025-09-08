@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import {Geist, JetBrains_Mono} from "next/font/google";
 import "./globals.css";
+import "@/styles/tokens.css";
 import React from "react";
 import {AgentStateProvider} from "@/a2a/state/agent/agentStateContext";
 import {Providers} from "@/app/providers";
@@ -12,8 +13,8 @@ const geistSans = Geist({
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+const jetBrainsMono = JetBrains_Mono({
+    variable: "--font-jetbrains-mono",
     subsets: ["latin"],
 });
 
@@ -40,11 +41,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+        <body className={`${geistSans.variable} ${jetBrainsMono.variable} font-sans antialiased h-screen bg-bg text-text1`} suppressHydrationWarning>
         {/* Wrap your entire app with AgentStateProvider */}
         <ErrorBoundary>
             <Providers>
-                {children}
+                <div className="h-full w-full">
+                    {children}
+                </div>
             </Providers>
         </ErrorBoundary>
         </body>

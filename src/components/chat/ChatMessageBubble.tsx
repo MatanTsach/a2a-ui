@@ -21,19 +21,19 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message })
                 {message.senderName}
             </div>
             
-            <div className="max-w-[70%] space-y-2">
+            <div className="max-w-chat space-y-2">
                 {/* Message bubble */}
                 {message.content && (
-                    <div className={`relative px-4 py-3 rounded-2xl text-sm whitespace-pre-wrap break-words ${
+                    <div className={`relative p-5 rounded-2xl text-sm whitespace-pre-wrap break-words border ${
                         message.sender === "user"
-                            ? "bg-primary text-primary-foreground rounded-br-md"
-                            : "bg-muted text-foreground rounded-bl-md"
+                            ? "ml-auto bg-muted border/70"
+                            : "bg-card border shadow-sm hover:shadow-md transition-shadow duration-200 ease-calm"
                     }`}>
                         {message.content}
                         
                         {/* Timestamp */}
-                        <div className={`text-xs mt-1 ${
-                            message.sender === "user" ? "text-primary-foreground/70" : "text-muted-foreground"
+                        <div className={`text-[11px] mt-2 ${
+                            message.sender === "user" ? "text-muted-foreground/70" : "text-muted-foreground/70"
                         }`}>
                             {message.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                         </div>
