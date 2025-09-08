@@ -1,6 +1,7 @@
 import React from "react";
 import { useTasksStoreClient } from "@/hooks/useTasksStoreClient";
 import { formatDistanceToNow } from "date-fns";
+import { Task } from "@/state/tasksStore";
 
 interface TaskListProps {
   onTaskSelect: (taskId: string) => void;
@@ -19,7 +20,7 @@ export const TaskList: React.FC<TaskListProps> = ({ onTaskSelect }) => {
     );
   }
   
-  const tasksList = Object.values(tasks).sort((a, b) => b.updatedAt - a.updatedAt);
+  const tasksList = Object.values(tasks).sort((a: Task, b: Task) => b.updatedAt - a.updatedAt);
 
   const getStatusPillStyle = (state: string) => {
     switch (state) {

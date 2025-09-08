@@ -35,7 +35,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartChat, isInChatM
   return (
     <section className="pt-24 pb-12 px-6">
       {/* Hero Title */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-20">
         <h1 className="text-3xl font-bold tracking-tight mb-4" 
             style={{ 
               color: 'hsl(var(--text-1))',
@@ -46,7 +46,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartChat, isInChatM
       </div>
 
       {/* Prompt Card - Following composer design from spec */}
-      <div className="mx-auto max-w-chat">
+      <div className="mx-auto" style={{ maxWidth: '500px' }}>
         <form onSubmit={handleSubmit}>
           <div className="rounded-2xl border shadow-soft transition-shadow duration-200 ease-calm" 
                style={{ 

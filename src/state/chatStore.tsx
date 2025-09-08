@@ -65,7 +65,7 @@ function reducer(state: ChatState, action: Action): ChatState {
     }
     case "push_status": {
       const existingIndex = state.statuses.findIndex((s) => s.id === action.chip.id);
-      let statuses = state.statuses.slice();
+      const statuses = state.statuses.slice();
       if (existingIndex >= 0) statuses[existingIndex] = action.chip; else statuses.push(action.chip);
       return { ...state, statuses };
     }
