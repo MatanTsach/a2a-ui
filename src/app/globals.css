@@ -173,6 +173,13 @@ body {
 .prose table { @apply w-full overflow-hidden rounded-lg border border-border; }
 .prose thead th { @apply bg-surface2 text-text2; }
 
+/* Prose small variant */
+.prose-sm p, .prose-sm li { @apply text-[14px] leading-[1.6] text-text1; }
+.prose-sm h1 { @apply text-[26px]; }
+.prose-sm h2 { @apply text-[22px]; }
+.prose-sm h3 { @apply text-[18px]; }
+.prose-sm code { @apply text-[12px]; }
+
 /* Focus ring standard */
 :where(button, [role="button"], a, input, textarea, select):focus-visible {
   outline: none;

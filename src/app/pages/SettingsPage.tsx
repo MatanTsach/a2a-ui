@@ -54,7 +54,7 @@ export default function SettingsPage() {
         <div className="space-y-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-2xl font-semibold text-foreground">Settings</h2>
+                    {/* Removed h2 here since it's already in the parent component */}
                     <p className="text-muted-foreground">
                         Configure application settings and preferences. Settings are automatically saved to your browser.
                     </p>

@@ -1,7 +1,12 @@
 import React from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-export const AppBar: React.FC = () => {
+interface AppBarProps {
+  onSettingsClick?: () => void;
+  onDocsClick?: () => void;
+}
+
+export const AppBar: React.FC<AppBarProps> = ({ onSettingsClick, onDocsClick }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-14 border-b flex items-center justify-between px-6" 
             style={{ 
@@ -21,12 +26,18 @@ export const AppBar: React.FC = () => {
 
       {/* Right: Settings, Docs links */}
       <div className="flex items-center space-x-6">
-        <button className="text-sm font-medium transition-colors hover:opacity-80"
-                style={{ color: 'hsl(var(--text-2))' }}>
+        <button 
+          className="text-sm font-medium transition-colors hover:opacity-80 cursor-pointer"
+          style={{ color: 'hsl(var(--text-2))' }}
+          onClick={onSettingsClick}
+        >
           Settings
         </button>
-        <button className="text-sm font-medium transition-colors hover:opacity-80"
-                style={{ color: 'hsl(var(--text-2))' }}>
+        <button 
+          className="text-sm font-medium transition-colors hover:opacity-80 cursor-pointer"
+          style={{ color: 'hsl(var(--text-2))' }}
+          onClick={onDocsClick}
+        >
           Docs
         </button>
         <ThemeToggle />
