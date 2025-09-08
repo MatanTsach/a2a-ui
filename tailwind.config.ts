@@ -34,7 +34,7 @@ const config: Config = {
         pill: '9999px',
       },
       maxWidth: {
-        chat: '640px',
+        chat: '480px',
       },
       spacing: {
         1.5: '0.375rem',
